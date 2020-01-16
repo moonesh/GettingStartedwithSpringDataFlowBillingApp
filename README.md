@@ -62,4 +62,4 @@ The app has 3 microservices forming the data pipeline - as explained below:
 ###### 10) Strat & Deploy Stream 
 > stream deploy --name billing-stream
 
-	###### 11) References [View](https://dataflow.spring.io/docs/stream-developer-guides/streams/standalone-stream-kafka/).
+###### 11) References [View](https://dataflow.spring.io/docs/stream-developer-guides/streams/standalone-stream-kafka/).
