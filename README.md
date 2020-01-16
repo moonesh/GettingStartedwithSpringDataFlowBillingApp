@@ -1,6 +1,6 @@
-#Spring Cloud Data Flow - Billing App using KAFKA binder
+# Spring Cloud Data Flow - Billing App using KAFKA binder
 
-##About App :
+## About App :
 This app calculates the cost of phone call bills for users considering the call duration and data usage. 
 
 The app has 3 microservices forming the data pipeline - as explained below: 
@@ -8,11 +8,13 @@ The app has 3 microservices forming the data pipeline - as explained below:
 * billing-usage-cost-processor : This acts as "PROCESSOR" which listens to the Kafka topic "usage-detail" from SOURCE app, transforms the data using some logic for calculating the usage cost per user on basis of it data usage and call duration. Finally it pushes back the processed data to the Kafka queue on topic "usage-cost" for the logger application.
 * billing-cost-logger: This microservice acts as a "SINK" which listens to the processed data on topic "usage-cost" and spits out the results as logs. 
 
-##SETUP and RUN the APP on Local Spring Data Flow Server: 
+## SETUP and RUN the APP on Local Spring Data Flow Server: 
 ###### 1. Chekout all 3 microservices from git and build the jars using "clean install" . Install will place the built jars in .m2 repository - as it the Spring Data Flow Sever will require the maven uristo register these apps. Also note the follwing points: 
   - In applicaion.properties files of all 3 applications we have configured Kafka Topics (input and output data binding) - as explained above.
   - The maven uri for each component/microservice will be of the follwoing pattern:
-     - maven://<groupId>:<artifactId>[:<extension>[:<classifier>]]:<version>
+     -
+     ```
+     maven://<groupId>:<artifactId>[:<extension>[:<classifier>]]:<version>
 
 ###### 2. RUN KAFKA and Zookeeper : 
  - Take the following steps to run both and create the topics as mentioned above:
@@ -60,4 +62,4 @@ The app has 3 microservices forming the data pipeline - as explained below:
 ###### 10) Strat & Deploy Stream 
 > stream deploy --name billing-stream
 
-###### 11) References [Download](https://dataflow.spring.io/docs/stream-developer-guides/streams/standalone-stream-kafka/).
+	###### 11) References [View](https://dataflow.spring.io/docs/stream-developer-guides/streams/standalone-stream-kafka/).
