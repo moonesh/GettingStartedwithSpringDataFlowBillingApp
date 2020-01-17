@@ -16,29 +16,14 @@ The app has 3 microservices forming the data pipeline - as explained below:
      ```
      maven://<groupId>:<artifactId>[:<extension>[:<classifier>]]:<version>
 
-###### 2. RUN KAFKA and Zookeeper : 
- - Take the following steps to run both and create the topics as mentioned above:
-     -  git clone https://github.com/wurstmeister/kafka-docker
-     - Replace the code in kafka-docker > docker-compose.yml with:
-	 
-	   ```
-		    version: '2'
-			services:
-			  zookeeper:
-				image: wurstmeister/zookeeper
-				ports:
-				  - "2181:2181"
-			  kafka:
-				build: .
-				ports:
-				  - "9092:9092"
-				environment:
-				  KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
-				  KAFKA_CREATE_TOPICS: "usage-detail,usage-cost"
-				  KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-				volumes:
-				  - /var/run/docker.sock:/var/run/docker.sock
- 
+###### 2. RUN KAFKA, Zookeeper and Kafka-UI: 
+  - Run the following command 
+      > docker-compose -f docker-compose-billing-app up -d
+  - Open the Kafka UI  @ localhost:9000 and once you deploy the stream (as we'll see below) - you can monitor all the topics, partitions  and messages. 
+  - Note: The topic is automatically generated using the format : 
+   ``` <stream name>.<name of the app registered> (For example in ourcase it will auto-generate two Topics: billing-stream.usage-sender &  billing-stream.usage-cost-processor (from steps 7 and 8 ))
+   ```
+     
 ###### 3) Download Spring Cloud Data Flow Server jar [Download](https://repo.spring.io/milestone/org/springframework/cloud/spring-cloud-dataflow-server-local/1.7.4.RELEASE/spring-cloud-dataflow-server-local-1.7.4.RELEASE.jar).
 
 ###### 4) Strat Spring Cloud Data Flow Server (Check on : localhost:9393 after start)
@@ -59,10 +44,10 @@ The app has 3 microservices forming the data pipeline - as explained below:
 ###### 8) Create Cloud Stream to connect between all microservices registered in spring cloud data flow server
 > stream create --name billing-stream --definition 'usage-sender | usage-cost-processor | cost-logger'
 
-###### 10) Strat & Deploy Stream 
+###### 9) Strat & Deploy Stream 
 > stream deploy --name billing-stream
 
-###### 11) Check the Setup:
+###### 10) Check the Setup:
  - Go to dashboard i.e. localhost:9393 and you'll see application registered and stream created as intented.
  - To check the application logs go to the cindow where the SDF server was started at the end there will be the path to the folder something like this (in windows) :   Logs will be in C:\Users\moonesh\AppData\Local\Temp\spring-cloud-deployer-8031984761677234952\billing-stream-1579184372883\billing-stream.usage-sender
 
