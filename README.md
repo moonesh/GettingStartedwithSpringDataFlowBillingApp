@@ -21,9 +21,12 @@ The app has 3 microservices forming the data pipeline - as explained below:
       > docker-compose -f docker-compose-billing-app up -d
   - Open the Kafka UI  @ localhost:9000 and once you deploy the stream (as we'll see below) - you can monitor all the topics, partitions  and messages. 
   - Note: The topic is automatically generated using the format : 
-   ``` <stream name>.<name of the app registered> (For example in ourcase it will auto-generate two Topics: billing-stream.usage-sender &  billing-stream.usage-cost-processor (from steps 7 and 8 ))
-   ```
-     
+ 
+ ``` 
+   <stream name>.<name of the app registered> 
+   (For example in ourcase it will auto-generate two Topics: 
+   billing-stream.usage-sender &  billing-stream.usage-cost-processor (from steps 7 and 8 ))
+   ```  
 ###### 3) Download Spring Cloud Data Flow Server jar [Download](https://repo.spring.io/milestone/org/springframework/cloud/spring-cloud-dataflow-server-local/1.7.4.RELEASE/spring-cloud-dataflow-server-local-1.7.4.RELEASE.jar).
 
 ###### 4) Strat Spring Cloud Data Flow Server (Check on : localhost:9393 after start)
